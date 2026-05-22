@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шлюбне Агентство «Сім'я» — Твій шанс на щастя</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Ніжна світла рожева палітра */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fff5f6;
+            color: #4a2830;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d6335c;
+            font-weight: 700;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка сайту */
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(255, 245, 246, 0.4), rgba(255, 245, 246, 0.9)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920') no-repeat center center/cover;
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(transparent, #fff5f6);
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #d6335c;
+            text-shadow: 0 4px 15px rgba(214, 51, 92, 0.15);
+            font-weight: 800;
+        }
+
+        .hero-content p {
+            font-size: 1.8rem;
+            color: #ff668a;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+
+        .hero-content span {
+            display: block;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 25px auto 0;
+            color: #613b45;
+            font-weight: 500;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #d6335c;
+        }
+
+        .section-title::after {
+            content: '💖';
+            display: block;
+            font-size: 1.3rem;
+            margin-top: 15px;
+        }
+
+        /* Картки послуг */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #ffffff;
+            border: 1px solid #ffe0e5;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(214, 51, 92, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: #ff668a;
+            box-shadow: 0 15px 35px rgba(214, 51, 92, 0.1);
+        }
+
+        .service-card .icon {
+            font-size: 3rem;
+            color: #ff668a;
+            margin-bottom: 25px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #4a2830;
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            color: #6e4e56;
+        }
+
+        /* Адаптивна сітка під картинки клієнтів */
+        .happy-clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .client-empty-box {
+            background: #fff;
+            border: 2px dashed #ffb3c1;
+            height: 320px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ff80a0;
+            transition: background 0.3s, border-color 0.3s;
+            overflow: hidden; /* Ховає все, що виходить за межі закруглених кутів */
+            position: relative;
+        }
+
+        /* Автоматичне підлаштування великих фото */
+        .client-empty-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Заповнює весь блок без деформації пропорцій */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .client-empty-box:hover {
+            background: #fffbfc;
+            border-color: #d6335c;
+            color: #d6335c;
+        }
+
+        /* Позиціонування іконки та тексту, щоб вони були поверх фото, якщо знадобиться */
+        .client-empty-box i,
+        .client-empty-box span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .client-empty-box i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .client-empty-box span {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Креативний блок */
+        .creative-block {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #ffe0e5;
+            box-shadow: 0 10px 30px rgba(214, 51, 92, 0.04);
+        }
+
+        .creative-text {
+            flex: 1;
+            padding: 50px;
+        }
+
+        .creative-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #d6335c;
+        }
+
+        .creative-img {
+            flex: 1;
+            height: 450px;
+            background: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800') center center/cover;
+        }
+
+        /* Команда */
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .member-card {
+            background: #ffffff;
+            border-left: 6px solid #d6335c;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(214, 51, 92, 0.05);
+            border-top: 1px solid #ffe0e5;
+            border-right: 1px solid #ffe0e5;
+            border-bottom: 1px solid #ffe0e5;
+        }
+
+        .member-card h3 {
+            font-size: 1.8rem;
+            color: #4a2830;
+            margin-bottom: 5px;
+        }
+
+        .member-card .role {
+            color: #ff668a;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .member-card p {
+            font-size: 1.05rem;
+            color: #6e4e56;
+            margin-bottom: 25px;
+        }
+
+        .member-card .tg-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            background: linear-gradient(135deg, #ff668a 0%, #d6335c 100%);
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .member-card .tg-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(214, 51, 92, 0.25);
+        }
+
+        /* Форма заявки */
+        .form-section {
+            background: #ffffff;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 24px;
+            border: 1px solid #ffe0e5;
+            box-shadow: 0 15px 40px rgba(214, 51, 92, 0.06);
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #4a2830;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 15px;
+            background: #fffcfd;
+            border: 1px solid #ffe0e5;
+            color: #4a2830;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            border-radius: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #ff668a;
+            box-shadow: 0 0 10px rgba(255, 102, 138, 0.15);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff668a 0%, #d6335c 100%);
+            color: #fff;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(214, 51, 92, 0.3);
+        }
+
+        /* Модалка */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(74, 40, 48, 0.5);
+            z-index: 999;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-box {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            color: #4a2830;
+            border: 1px solid #ffe0e5;
+            padding: 45px 40px;
+            border-radius: 24px;
+            text-align: center;
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 50px rgba(214, 51, 92, 0.15);
+            display: none;
+        }
+
+        .modal-box h2 {
+            color: #27ae60;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .modal-box p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #5c3a43;
+            line-height: 1.5;
+        }
+
+        .modal-box .emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .action-tg-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            background: #229ED9;
+            color: #fff;
+            padding: 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(34, 158, 217, 0.3);
+            transition: transform 0.2s, background 0.2s;
+            margin-bottom: 15px;
+        }
+
+        .action-tg-btn:hover {
+            transform: translateY(-2px);
+            background: #1e8ec3;
+        }
+
+        .close-txt-btn {
+            background: transparent;
+            border: none;
+            color: #a3828a;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1.4rem; }
+            .creative-block { flex-direction: column; }
+            .creative-img { height: 250px; width: 100%; }
+            .team-grid { grid-template-columns: 1fr; }
+            .form-grid-2 { grid-template-columns: 1fr; gap: 0; }
+            section { padding: 50px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="hero-content">
+            <p>Вас вітає шлюбне агентство</p>
+            <h1>«Сім'я»</h1>
+            <span>Готові знайти ту саму людину, яка розділить з вами і сніданки, і божевільні життєві пригоди? Ми відкидаємо занудство, нудні анкети та зводимо закохані серця легко, драйвово та назавжди!</span>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        
+        <section id="services">
+            <h2 class="section-title">Як ми це робимо</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <h3>Експертний підбір</h3>
+                    <p>Знайдемо ключ до вашої душі та підберемо пару навіть у найбільш нестандартних, заплутаних та «безнадійних» життєвих ситуаціях. Ми обожнюємо складні виклики!</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <h3>Шалена іскра</h3>
+                    <p>Організуємо перше побачення за нашою авторською драйвовою методикою. Створюємо таку невимушену хімію, що ви гарантовано захочете палко поцілуватися вже на першій зустрічі.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon"><i class="fa-solid fa-camera-retro"></i></div>
+                    <h3>Привабливе портфоліо</h3>
+                    <p>Професійна романтична зйомка, яка розкриє твою справжню внутрішню магнетичність. Створимо контент, повз який неможливо пройти.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="happy-clients">
+            <h2 class="section-title">Фото наших щасливих клієнтів</h2>
+            <div class="happy-clients-grid">
+                <div class="client-empty-box">
+                    <img src="1.png" alt="Фото клієнтів 1">
+                </div>
+                <div class="client-empty-box">
+                    <img src="2.jpg" alt="Фото клієнтів 2">
+                </div>
+                <div class="client-empty-box">
+                    <img src="3.jpg" alt="Фото клієнтів 3">
+                </div>
+                <div class="client-empty-box">
+                    <i class="fa-solid fa-heart-circle-plus"></i>
+                    <span>Тут може бути твоє photo!</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="creative">
+            <div class="creative-block">
+                <div class="creative-text">
+                    <h3>Побачення без жодних обмежень</h3>
+                    <p>Для справжніх почуттів немає кордонів, закритих дверей чи перешкод. Наша команда втілить у життя весілля вашої мрії або мега-екстремальне таємне побачення у будь-якій локації планети — навіть якщо це закритий ізольований об'єкт чи побачення у в'язниці. Ми вирішуємо завдання будь-якого рівня складності!</p>
+                </div>
+                <div class="creative-img"></div>
+            </div>
+        </section>
+
+        <section id="team">
+            <h2 class="section-title">Хто створює магію</h2>
+            <p style="text-align: center; max-width: 700px; margin: -30px auto 40px; opacity: 0.9; color: #6e4e56; font-size: 1.1rem;">
+                Команда професійних купідонів, які перевернуть твоє уявлення про стосунки і змусять особисте життя грати новими барвами.
+            </p>
+            <div class="team-grid">
+                <div class="member-card">
+                    <h3>Богдан еблан</h3>
+                    <span class="role">Головний архітектор романтики</span>
+                    <p>Майстер виходу з кризових ситуацій та пошуку істинного кохання там, де інші здалися. Знайде підхід до будь-якого, навіть найхолоднішого серця.</p>
+                    <a href="https://t.me/G90_gg" class="tg-link" target="_blank">
+                        <i class="fa-brands fa-telegram"></i> Написати Богдану
+                    </a>
+                </div>
+                <div class="member-card">
+                    <h3>Маша відпиздю кого хочеш</h3>
+                    <span class="role">Керівник служби безпеки та сервісу</span>
+                    <p>Захищає ваші інтереси на всі 100%. Контролює ідеальний порядок, затишок та залізну дисципліну під час підготовки та проведення кожного побачення.</p>
+                    <a href="https://t.me/Stay_04" class="tg-link" target="_blank">
+                        <i class="fa-brands fa-telegram"></i> Надіслати інсайд Маші
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="callback">
+            <h2 class="section-title">Заповнити анкету для Марії</h2>
+            <div class="form-section">
+                
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label>Твоє ім'я</label>
+                        <input type="text" id="clientName" placeholder="Як до тебе звертатися?">
+                    </div>
+                    <div class="form-group">
+                        <label>Твій вік</label>
+                        <input type="number" id="clientAge" placeholder="Скільки тобі років?">
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label>Твоя стать</label>
+                        <select id="clientGender">
+                            <option value="Чоловік">Чоловік</option>
+                            <option value="Жінка">Жінка</option>
+                            <option value="Секрет">Не хочу розголошувати</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Орієнтовний бюджет на побачення</label>
+                        <select id="clientBudget">
+                            <option value="Скромний (Кава/Прогулянка)">Скромний (Кава / Романтична прогулянка)</option>
+                            <option value="Середній (Ресторан/Кіно)">Середній (Ресторан / Креативний простір)</option>
+                            <option value="Безліміт (Екстрим/В'язниця під ключ)">Безліміт (Екстрим / Повний відрив)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Твій Telegram або номер телефону для відповіді</label>
+                    <input type="text" id="clientContact" placeholder="@username або +380...">
+                </div>
+
+                <div class="form-group">
+                    <label>Кого ти шукаєш або яку божевільну ідею хочеш реалізувати?</label>
+                    <textarea id="clientMessage" rows="4" placeholder="Опишіть свої побажання чи ідею для божевільного побачення..."></textarea>
+                </div>
+
+                <button class="submit-btn" onclick="generateAndCopyForm()">Сформувати та скопіювати заявку</button>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
+    <div class="modal-box" id="modalBox">
+        <span class="emoji">📋✨</span>
+        <h2>УСПІШНО СКОПІЙОВАНО!</h2>
+        <p>Текст вашої заявки повністю сформовано та автоматично скопійовано у ваш буфер обміну.<br><br>Тепер перейдіть у Telegram та просто <b>відправте (вставте)</b> цей текст Марії.</p>
+        
+        <a href="https://t.me/Stay_04" class="action-tg-btn" target="_blank" onclick="closeModal()">
+            <i class="fa-brands fa-telegram"></i> Написати Марії
+        </a>
+        <br>
+        <button class="close-txt-btn" onclick="closeModal()">Закрити вікно</button>
+    </div>
+
+    <script>
+        function playCustomSound() {
+            const audio = new Audio('sound.mp3');
+            audio.play().catch(err => {
+                console.log("Браузер заблокував автоаудіо або файл не знайдено:", err);
+            });
+        }
+
+        function generateAndCopyForm() {
+            const name = document.getElementById('clientName').value || 'Не вказано';
+            const age = document.getElementById('clientAge').value || 'Не вказано';
+            const gender = document.getElementById('clientGender').value;
+            const budget = document.getElementById('clientBudget').value;
+            const contact = document.getElementById('clientContact').value || 'Не вказано';
+            const message = document.getElementById('clientMessage').value || 'Не вказано';
+
+            const finalText = `Привіт, Марія! Я з сайту шлюбного агентства «Сім'я». Ось моя заявка:\n\n` +
+                              `• Ім'я: ${name}\n` +
+                              `• Вік: ${age}\n` +
+                              `• Стать: ${gender}\n` +
+                              `• Бюджет: ${budget}\n` +
+                              `• Контакт для зв'язку: ${contact}\n` +
+                              `• Побажання/Ідея: ${message}`;
+
+            navigator.clipboard.writeText(finalText).then(() => {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('modalBox').style.display = 'block';
+                playCustomSound();
+            }).catch(err => {
+                alert('Ой, не вдалося автоматично скопіювати текст. Будь ласка, скопіюйте його вручну.');
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modalBox').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
